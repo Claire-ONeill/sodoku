@@ -1,0 +1,2 @@
+# sodoku
+Simple sodoku game
