@@ -45,7 +45,7 @@ form{
 
 #sudoku-board input:focus {
     outline: none;
-    background-color: #007bff;
+    background-color: #48686f;
     color: white;
     cursor: pointer;
 }
@@ -58,7 +58,7 @@ form{
 
 #sudoku-numbers .selected {
     color: white;
-    background-color: #007bff;
+    background-color: #48686f;
 }
 .cell{
     cursor: pointer;
@@ -96,7 +96,7 @@ form{
 
 #sudoku-board input:focus {
     outline: none;
-    border: 2px solid#007bff;
+    border: 2px solid#48686f;
 }
 
 button {
