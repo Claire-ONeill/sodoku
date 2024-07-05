@@ -1,6 +1,7 @@
 let board = [];
 let solution = [];
 let original = [];
+let level = null; 
 let selectedNumber = null;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const sudokuNumbers = document.getElementById('sudoku-numbers');
     const newGame = document.getElementById('new-game-button');
     const checkBoard = document.getElementById('check-board-button')
+    const difficulty = document.getElementById('difficulty');
+    // const difficultyButtons = document.querySelectorAll('.level');
 
     function createBoard(puzzle, solution) {
         sudokuBoard.innerHTML = '';
@@ -84,9 +87,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return true;
     }
 
-    async function generateBoard() {
+    async function generateBoard(difficulty) {
         try {
-            const resp = await fetch('https://sudoku-api.vercel.app/api/dosuku');
+            const resp = await fetch(`https://sudoku-api.vercel.app/api/dosuku?difficulty=${difficulty}`);
             if (!resp.ok) {
                 throw new Error(`HTTP Status error: ${resp.status}`);
             }
@@ -94,14 +97,16 @@ document.addEventListener('DOMContentLoaded', () => {
             board = data.newboard.grids[0].value;
             solution = data.newboard.grids[0].solution;
             original = data.newboard.grids[0].value;
+            level = data.newboard.grids[0].difficulty;
+            console.log(level); 
             return { board, solution };
         } catch (err) {
             console.log(`Error encountered: ${err}`);
         }
     }
 
-    async function resetGame() {
-        const { board, solution } = await generateBoard();
+    async function resetGame(difficulty) {
+        const { board, solution } = await generateBoard(difficulty);
         createBoard(board, solution);
         return board;
     }
@@ -140,9 +145,8 @@ document.addEventListener('DOMContentLoaded', () => {
             window.alert('Solution is incorrect. Please check your moves.');
         }
     }
-    
-
-    resetGame();
+    resetGame(difficulty);
+    // difficultyButtons.addEventListener('click', handleLevelSelection); 
     checkBoard.addEventListener('click', checkSolution); 
     newGame.addEventListener('click', resetGame);
     resetButton.addEventListener('click', resetBoard);
