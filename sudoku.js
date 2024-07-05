@@ -1,28 +1,20 @@
-// script.js
+let board = [];
+let solution = [];
+let original = [];
+let selectedNumber = null;
 
 document.addEventListener('DOMContentLoaded', () => {
     const sudokuBoard = document.getElementById('sudoku-board');
-    const resetButton = document.getElementById('reset-button');
+    const resetButton = document.getElementById('reset-game-button');
     const sudokuNumbers = document.getElementById('sudoku-numbers'); 
     const newGame = document.getElementById('new-game-button'); 
     let solution = []; 
     let selectedNumber = null; 
     let currBoard = []; 
-    // Example Sudoku puzzle (0 represents empty cells)
-    const board = [
-        [5, 3, 0, 0, 7, 0, 0, 0, 0],
-        [6, 0, 0, 1, 9, 5, 0, 0, 0],
-        [0, 9, 8, 0, 0, 0, 0, 6, 0],
-        [8, 0, 0, 0, 6, 0, 0, 0, 3],
-        [4, 0, 0, 8, 0, 3, 0, 0, 1],
-        [7, 0, 0, 0, 2, 0, 0, 0, 6],
-        [0, 6, 0, 0, 0, 0, 2, 8, 0],
-        [0, 0, 0, 4, 1, 9, 0, 0, 5],
-        [0, 0, 0, 0, 8, 0, 0, 7, 9]
-    ];
 
-    function createBoard(puzzle = board) {
+    function createBoard(puzzle, solution) {
         sudokuBoard.innerHTML = '';
+        console.log(`puzzle: ${puzzle}`); 
         for (let row = 0; row < 9; row++) {
             for (let col = 0; col < 9; col++) {
                 const cell = document.createElement('input');
@@ -64,26 +56,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error(`HTTP Status error: ${resp.status}`); 
             }
             const data = await resp.json(); 
-            console.log(`Data: ${JSON.stringify(data.newboard.grids[0])}`); 
-            
+            board = data.newboard.grids[0].value; 
+            solution = data.newboard.grids[0].solution; 
+            original = data.newboard.grids[0].value;
 
+            console.log(board);
+
+            return {board, solution}; 
         }catch (err){
             console.log(`Error encountered: ${err}`); 
         }
     }
-
-    // Function to reset the game
-    function resetGame() {
-        createBoard();
-        generateBoard(); 
+    async function resetGame() {
+        board, solution = await generateBoard(); 
+        createBoard(board, solution); 
     }
 
     // Initialize the game
-    createBoard();
+    resetGame(); 
 
-    newGame.addEventListener('click', () => {
-        window.location.href = 'index.html'; 
-    });
+    newGame.addEventListener('click', resetGame);
+
     // Event listener for the reset button
     resetButton.addEventListener('click', resetGame);
 });

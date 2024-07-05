@@ -55,6 +55,9 @@ body {
     background-color: #007bff;
 }
 
+.cell-disabled {
+    background-color: #f0f0f0; /* Change this color as needed */
+}
 #sudoku-numbers div {
     width: 40px;
     height: 40px;
