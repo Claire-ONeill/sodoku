@@ -109,12 +109,13 @@ button {
 }
 
 button:hover{
-    background-color: #ace7f5;
+    background-color: #48686f;
+    color: white;
 }
 
-.level.selected {
+/* .level.selected {
     background-color: #45a049;
-}
+} */
 
 #sudoku-board input:nth-child(3n) {
     border-right: 2px solid gray;
