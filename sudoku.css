@@ -60,7 +60,9 @@ form{
     color: white;
     background-color: #007bff;
 }
-
+.cell{
+    cursor: pointer;
+}
 .cell-disabled {
     background-color: #e0f1f5; 
 }

@@ -87,9 +87,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return true;
     }
 
-    async function generateBoard(difficulty) {
+    async function generateBoard() {
         try {
-            const resp = await fetch(`https://sudoku-api.vercel.app/api/dosuku?difficulty=${difficulty}`);
+            const resp = await fetch('https://sudoku-api.vercel.app/api/dosuku');
             if (!resp.ok) {
                 throw new Error(`HTTP Status error: ${resp.status}`);
             }
@@ -98,7 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
             solution = data.newboard.grids[0].solution;
             original = data.newboard.grids[0].value;
             level = data.newboard.grids[0].difficulty;
-            console.log(level); 
+            console.log(level);
+            console.log(difficulty);  
             return { board, solution };
         } catch (err) {
             console.log(`Error encountered: ${err}`);
