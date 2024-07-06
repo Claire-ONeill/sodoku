@@ -11,9 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const newGame = document.getElementById('new-game-button');
     const checkBoard = document.getElementById('check-board-button')
     const difficulty = document.getElementById('difficulty');
-    // const difficultyButtons = document.querySelectorAll('.level');
-
-    function createBoard(puzzle, solution) {
+    function createBoard(puzzle) {
         sudokuBoard.innerHTML = '';
         for (let row = 0; row < 9; row++) {
             for (let col = 0; col < 9; col++) {
@@ -23,28 +21,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 cell.max = 9;
                 cell.dataset.row = row;
                 cell.dataset.col = col;
-
+                cell.classList.add('sudoku-cell'); // Add a class for consistent styling
+    
                 if (puzzle[row][col] !== 0) {
                     cell.value = puzzle[row][col];
                     cell.disabled = true;
                     cell.classList.add('cell-disabled', 'readonly');
                 } else {
                     cell.addEventListener('click', () => {
+                        const selectedRow = parseInt(cell.dataset.row);
+                        const selectedCol = parseInt(cell.dataset.col);
+                        highlightRowAndColumn(selectedRow, selectedCol); // Highlight based on clicked cell
                         if (selectedNumber !== null) {
                             const value = selectedNumber;
-                            if (!isValidMove(puzzle, row, col, value)) {
+                            if (!isValidMove(puzzle, selectedRow, selectedCol, value)) {
                                 cell.classList.add('invalid-move');
                                 cell.value = value;
-                                puzzle[row][col] = value;
+                                puzzle[selectedRow][selectedCol] = value;
                             } else {
                                 cell.classList.remove('invalid-move');
                                 cell.value = value;
-                                puzzle[row][col] = value;
+                                puzzle[selectedRow][selectedCol] = value;
                             }
                         }
                     });
-                    cell.readOnly = true; 
+                    cell.readOnly = true;
                 }
+    
                 sudokuBoard.appendChild(cell);
             }
         }
@@ -62,7 +65,24 @@ document.addEventListener('DOMContentLoaded', () => {
             sudokuNumbers.appendChild(numberCell);
         }
     }
-
+    function highlightRowAndColumn(row, col) {
+        const cells = document.querySelectorAll('.sudoku-cell');
+        cells.forEach(cell => {
+            const cellRow = parseInt(cell.dataset.row);
+            const cellCol = parseInt(cell.dataset.col);
+            const startRow = Math.floor(row / 3) * 3;
+            const startCol = Math.floor(col / 3) * 3;
+            if (cellRow === row || cellCol === col) {
+                cell.classList.add('highlight');
+            } 
+            else if (cellRow >= startRow && cellRow <= startRow + 2 &&
+                cellCol >= startCol && cellCol <= startCol + 2){
+                cell.classList.add('highlight');
+            }else {
+                cell.classList.remove('highlight');
+            }
+        });
+    }
     function isValidMove(puzzle, row, col, value) {
         for (let c = 0; c < 9; c++) {
             if (puzzle[row][c] === value && c !== col) {
@@ -98,8 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
             solution = data.newboard.grids[0].solution;
             original = data.newboard.grids[0].value;
             level = data.newboard.grids[0].difficulty;
-            console.log(level);
-            console.log(difficulty);  
             return { board, solution };
         } catch (err) {
             console.log(`Error encountered: ${err}`);
@@ -108,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function resetGame(difficulty) {
         const { board, solution } = await generateBoard(difficulty);
-        createBoard(board, solution);
+        createBoard(board);
         return board;
     }
 
@@ -119,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 cell.value = ''; 
                 cell.classList.remove('invalid-move');
             }
+            cell.classList.remove('highlight'); 
         });
     }
 
