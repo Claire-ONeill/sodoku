@@ -1,5 +1,5 @@
 # Classic Sodoku
-![alt text](gameplay.png)
+![alt text](updatedGameplay.png)
 
 ## Gameplay
 - **New Game**: Press this button to generate a new sodoku board 
@@ -10,9 +10,10 @@
 ## Additional Information
 - All incorrect answers will appear in red text until they are correct 
 - All Sodoku boards and solutions generated via Dosuku API
+- When an empty box is selected, the cells in its row, column, and the 3x3 box will be highlighted to improve gameplay experience 
+- Levels are chosen at random, due to the API used. If the user wishes to generate a new board, simply press new game
 
 ## Coming Soon 
-- Ability to select levels: Easy, Medium, Hard
 - Timer: tracks how long you have been working on the puzzle 
 - Leaderboard: A leaderboard containing your most recent high scores
 
