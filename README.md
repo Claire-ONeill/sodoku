@@ -15,7 +15,14 @@
 
 ## Coming Soon 
 - Timer: tracks how long you have been working on the puzzle 
-- Leaderboard: A leaderboard containing your most recent high scores
+- Scoring: A point system will be put into place in future iterations
+- Bug in IOS view: Due to some dependency issue the IOS view for this website makes the cells appear incorrectly
+  - NOTE: This is a visual issue and should not impact gameplay for IOS users
+
+## Developer Notes 
+- API Usage: https://sudoku-api.vercel.app/  
+  -   This API was used in order to generate all Sudoku boards and solutions
+-  HTML, CSS, and JS were used, should not require any additional package installations since no frameworks were used  
 
 
 
