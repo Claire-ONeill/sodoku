@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sudokuNumbers = document.getElementById('sudoku-numbers');
     const newGame = document.getElementById('new-game-button');
     const checkBoard = document.getElementById('check-board-button')
-    const difficulty = document.getElementById('difficulty');
+
     function createBoard(puzzle) {
         sudokuBoard.innerHTML = '';
         for (let row = 0; row < 9; row++) {
@@ -124,8 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    async function resetGame(difficulty) {
-        const { board, solution } = await generateBoard(difficulty);
+    async function resetGame() {
+        const { board, solution } = await generateBoard();
         createBoard(board);
         return board;
     }
@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
             window.alert('Solution is incorrect. Please check your moves.');
         }
     }
-    resetGame(difficulty);
+    resetGame();
     // difficultyButtons.addEventListener('click', handleLevelSelection); 
     checkBoard.addEventListener('click', checkSolution); 
     newGame.addEventListener('click', resetGame);
