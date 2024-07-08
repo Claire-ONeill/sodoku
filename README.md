@@ -1,5 +1,5 @@
 # Classic Sodoku
-![alt text](updatedGameplay.png)
+![alt text](images\updatedGameplay.png)
 
 ## Gameplay
 - **New Game**: Press this button to generate a new sodoku board 

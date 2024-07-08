@@ -3,6 +3,7 @@ let solution = [];
 let original = [];
 let level = null; 
 let selectedNumber = null;
+let numInactive = false; 
 
 document.addEventListener('DOMContentLoaded', () => {
     const sudokuBoard = document.getElementById('sudoku-board');
@@ -61,6 +62,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 numberCell.classList.add('selected');
                 selectedNumber = i;
+                numInactive = highlightNum(i); 
+                if (numInactive){
+                    numberCell.classList.add('cell-disabled', 'readonly');
+                }
             });
             sudokuNumbers.appendChild(numberCell);
         }
@@ -138,7 +143,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 cell.classList.remove('invalid-move');
             }
             cell.classList.remove('highlight'); 
+            cell.classList.remove('num-highlight');
         });
+    }
+    function highlightNum(num) {
+        const cells = sudokuBoard.querySelectorAll('input');
+        let isSolutionCorrect = true;
+    
+        cells.forEach(cell => {
+            const row = parseInt(cell.dataset.row);
+            const col = parseInt(cell.dataset.col);
+            const cellValue = parseInt(cell.value);
+            const solutionValue = solution[row][col];
+    
+            if (cellValue === num) {
+                cell.classList.add('num-highlight');
+                if (cellValue === solutionValue){
+                    return false;
+                    
+                }
+            } else {
+                cell.classList.remove('num-highlight');
+            }
+        });
+        return true; 
     }
 
     function checkSolution() {
