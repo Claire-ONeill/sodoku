@@ -46,6 +46,18 @@ body {
     margin-top: 20px;
 }
 
+#sudoku-numbers .cell-used{
+    color: #b3e1ed;
+    background-color: #78a3ad;
+    cursor:pointer;
+}
+
+#sudoku-numbers .cell-used:hover{
+    color: #b3e1ed;
+    background-color: #78a3ad;
+    cursor:pointer;
+}
+
 #sudoku-numbers .selected {
     color: white;
     background-color: #48686f;

@@ -60,11 +60,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.querySelectorAll('#sudoku-numbers .selected').forEach(cell => {
                     cell.classList.remove('selected');
                 });
-                numberCell.classList.add('selected');
-                selectedNumber = i;
-                numInactive = highlightNum(i); 
-                if (numInactive){
-                    numberCell.classList.add('cell-disabled', 'readonly');
+                if (!numberCell.classList.contains('cell-used')){
+                    selectedNumber = i;
+                    numInactive = highlightNum(i); 
+                    if (numInactive){
+                        numberCell.classList.add('cell-used');
+                        numberCell.classList.add('selected');
+                    }
+                    else{
+                        numberCell.classList.add('selected');
+                    }
                 }
             });
             sudokuNumbers.appendChild(numberCell);
@@ -145,6 +150,12 @@ document.addEventListener('DOMContentLoaded', () => {
             cell.classList.remove('highlight'); 
             cell.classList.remove('num-highlight');
         });
+        document.querySelectorAll('#sudoku-numbers .selected').forEach(cell => {
+            cell.classList.remove('selected');
+        });
+        document.querySelectorAll('#sudoku-numbers .cell-used').forEach(cell => {
+            cell.classList.remove('cell-used');
+        });
     }
     function highlightNum(num) {
         const cells = sudokuBoard.querySelectorAll('input');
@@ -156,17 +167,22 @@ document.addEventListener('DOMContentLoaded', () => {
             const cellValue = parseInt(cell.value);
             const solutionValue = solution[row][col];
     
-            if (cellValue === num) {
-                cell.classList.add('num-highlight');
-                if (cellValue === solutionValue){
-                    return false;
-                    
+            if (solutionValue === num || cellValue === num) {
+                if (cellValue === num){
+                    cell.classList.add('num-highlight');
                 }
-            } else {
+                if (cellValue !== num){
+                    cell.classList.remove('num-highlight');
+                }
+                if (solutionValue !== cellValue && solutionValue === num){
+                    isSolutionCorrect = false; 
+                }
+            } 
+            else {
                 cell.classList.remove('num-highlight');
             }
         });
-        return true; 
+        return isSolutionCorrect; 
     }
 
     function checkSolution() {
