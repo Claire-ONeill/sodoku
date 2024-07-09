@@ -13,7 +13,7 @@
 - All Sodoku boards and solutions generated via Dosuku API
 - When an empty box is selected, the cells in its row, column, and the 3x3 box will be highlighted to improve gameplay experience 
 - Numbers selected from the number bar will highlight occurrences of that number on the board 
-- When all 9 of the number have been placed correctly on the board, the number will appear in gray, and you will no longer be able to add it to the board 
+- Once a number has been placed correctly on the board, the button will be disabled 
 - Levels are chosen at random, due to the API used. If the user wishes to generate a new board, simply press new game
 
 ## Coming Soon 
