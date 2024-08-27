@@ -23,8 +23,8 @@
   - NOTE: This is a visual issue and should not impact gameplay for IOS users
 
 ## Developer Notes 
-- API Usage: https://sudoku-api.vercel.app/  
-  -   This API was used in order to generate all Sudoku boards and solutions
+- API Usage (deprecated): https://sudoku-api.vercel.app/  
+  -   This API was being used to generate new boards, the API was removed from online use 
 -  HTML, CSS, and JS were used, should not require any additional package installations since no frameworks were used  
 
 
