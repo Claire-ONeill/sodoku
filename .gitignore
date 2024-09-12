@@ -1,0 +1,31 @@
+# Node.js modules
+node_modules/
+
+# SQLite database files
+*.db
+*.sqlite
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+
+# CSV files (since they are large and could be regenerated)
+*.csv
+
+# IDE and editor files
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.idea/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.*
